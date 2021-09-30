@@ -32,10 +32,14 @@ namespace numbers_game
                 int product = GetProduct(populatedArr, finalSum);
                 int numFromIndex = product / finalSum;
                 string arrString = String.Join(",", populatedArr);
+                decimal quotient = GetQuotient(product);
+                decimal decProduct = Convert.ToDecimal(product);
+                decimal dividend = decimal.Divide(decProduct, quotient);
                 Console.WriteLine($"Your array size is: {arrSize}");
                 Console.WriteLine($"The numbers in the array are {arrString}");
                 Console.WriteLine($"The sum is {finalSum}");
                 Console.WriteLine($"{finalSum} * {numFromIndex} = {product}");
+                Console.WriteLine($"{product} / {dividend} = {quotient}");
             }
             catch (FormatException ex)
             {
@@ -89,6 +93,21 @@ namespace numbers_game
             {
                 throw new IndexOutOfRangeException(ex.Message);
             }
+        }
+
+        static decimal GetQuotient(int product)
+        {
+            Console.WriteLine($"Please enter a number to divide your product {product}");
+            decimal decProduct = Convert.ToDecimal(product);
+            string userInput = Console.ReadLine();
+            int userNum = Convert.ToInt32(userInput);
+            decimal userDec = Convert.ToDecimal(userNum);
+            decimal quotient = decimal.Divide(decProduct, userDec);
+            if( userNum == 0 )
+            {
+                return 0;
+            }
+            return quotient;
         }
      }
 
