@@ -29,10 +29,13 @@ namespace numbers_game
                 int[] arrToFill = new int[arrSize];
                 int[] populatedArr = Populate(arrToFill);
                 int finalSum = GetSum(populatedArr);
+                int product = GetProduct(populatedArr, finalSum);
+                int numFromIndex = product / finalSum;
                 string arrString = String.Join(",", populatedArr);
                 Console.WriteLine($"Your array size is: {arrSize}");
                 Console.WriteLine($"The numbers in the array are {arrString}");
                 Console.WriteLine($"The sum is {finalSum}");
+                Console.WriteLine($"{finalSum} * {numFromIndex} = {product}");
             }
             catch (FormatException ex)
             {
@@ -69,7 +72,18 @@ namespace numbers_game
             }
             return totalSum;
         }
-    }
+
+        static int GetProduct(int[] numArr, int sum)
+        {
+            int maxNum = numArr.Length;
+            Console.WriteLine($"Pick a number between 1 and {maxNum}");
+            string userInput = Console.ReadLine();
+            int randomNum = Convert.ToInt32(userInput);
+            int numFromArr = numArr[randomNum - 1];
+            int product = sum * numFromArr;
+            return product;
+        }
+     }
 
     public class SumTooLowException : Exception
     { 
