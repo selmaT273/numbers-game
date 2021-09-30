@@ -29,10 +29,17 @@ namespace numbers_game
                 int[] arrToFill = new int[arrSize];
                 int[] populatedArr = Populate(arrToFill);
                 int finalSum = GetSum(populatedArr);
+                int product = GetProduct(populatedArr, finalSum);
+                int numFromIndex = product / finalSum;
                 string arrString = String.Join(",", populatedArr);
+                decimal quotient = GetQuotient(product);
+                decimal decProduct = Convert.ToDecimal(product);
+                decimal dividend = decimal.Divide(decProduct, quotient);
                 Console.WriteLine($"Your array size is: {arrSize}");
                 Console.WriteLine($"The numbers in the array are {arrString}");
                 Console.WriteLine($"The sum is {finalSum}");
+                Console.WriteLine($"{finalSum} * {numFromIndex} = {product}");
+                Console.WriteLine($"{product} / {dividend} = {quotient}");
             }
             catch (FormatException ex)
             {
@@ -69,7 +76,40 @@ namespace numbers_game
             }
             return totalSum;
         }
-    }
+
+        static int GetProduct(int[] numArr, int sum)
+        {
+            int maxNum = numArr.Length;
+            Console.WriteLine($"Pick a number between 1 and {maxNum}");
+            string userInput = Console.ReadLine();
+            int randomNum = Convert.ToInt32(userInput);
+            try 
+            {
+                int numFromArr = numArr[randomNum - 1];
+                int product = sum * numFromArr;
+                return product;
+            }
+            catch(IndexOutOfRangeException ex)
+            {
+                throw new IndexOutOfRangeException(ex.Message);
+            }
+        }
+
+        static decimal GetQuotient(int product)
+        {
+            Console.WriteLine($"Please enter a number to divide your product {product}");
+            decimal decProduct = Convert.ToDecimal(product);
+            string userInput = Console.ReadLine();
+            int userNum = Convert.ToInt32(userInput);
+            decimal userDec = Convert.ToDecimal(userNum);
+            decimal quotient = decimal.Divide(decProduct, userDec);
+            if( userNum == 0 )
+            {
+                return 0;
+            }
+            return quotient;
+        }
+     }
 
     public class SumTooLowException : Exception
     { 
