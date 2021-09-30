@@ -79,9 +79,16 @@ namespace numbers_game
             Console.WriteLine($"Pick a number between 1 and {maxNum}");
             string userInput = Console.ReadLine();
             int randomNum = Convert.ToInt32(userInput);
-            int numFromArr = numArr[randomNum - 1];
-            int product = sum * numFromArr;
-            return product;
+            try 
+            {
+                int numFromArr = numArr[randomNum - 1];
+                int product = sum * numFromArr;
+                return product;
+            }
+            catch(IndexOutOfRangeException ex)
+            {
+                throw new IndexOutOfRangeException(ex.Message);
+            }
         }
      }
 
