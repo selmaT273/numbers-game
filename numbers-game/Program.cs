@@ -6,7 +6,18 @@ namespace numbers_game
     {
         static void Main(string[] args)
         {
-            StartSequence();
+            try 
+            {
+                StartSequence();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Exception: {0}", ex.Message);
+            }
+            finally
+            {
+                Console.Write("The program is complete.");
+            }
         }
 
         static void StartSequence()
@@ -51,7 +62,20 @@ namespace numbers_game
             {
                 totalSum = totalSum + numArr[i];
             }
+
+            if(totalSum < 20)
+            {
+                throw new SumTooLowException($"Value of {totalSum} is too low.");
+            }
             return totalSum;
         }
+    }
+
+    public class SumTooLowException : Exception
+    { 
+        public SumTooLowException() { }
+
+        public SumTooLowException(string message)
+            : base(message) { }
     }
 }
