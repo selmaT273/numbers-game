@@ -13,14 +13,21 @@ namespace numbers_game
         {
             Console.WriteLine("Enter a number greater than zero.");
             string userData = Console.ReadLine();
-            int arrSize = Convert.ToInt32(userData);
-            int[] arrToFill = new int[arrSize];
-            int[] populatedArr = Populate(arrToFill);
-            int finalSum = GetSum(populatedArr);
-            string arrString = String.Join(",", populatedArr);
-            Console.WriteLine($"Your array size is: {arrSize}");
-            Console.WriteLine($"The numbers in the array are {arrString}");
-            Console.WriteLine($"The sum is {finalSum}");
+            try {
+                int arrSize = Convert.ToInt32(userData);
+                int[] arrToFill = new int[arrSize];
+                int[] populatedArr = Populate(arrToFill);
+                int finalSum = GetSum(populatedArr);
+                string arrString = String.Join(",", populatedArr);
+                Console.WriteLine($"Your array size is: {arrSize}");
+                Console.WriteLine($"The numbers in the array are {arrString}");
+                Console.WriteLine($"The sum is {finalSum}");
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine("Exception: {0}", ex.Message);
+            }
+            
         }
 
         static int[] Populate(int[] numArr)
